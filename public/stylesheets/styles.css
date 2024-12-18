@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body {
+  background: #ebebeb;
+  font-family: sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+}
+body .container-fluid, body #wrapper {
+  margin: 0 auto;
+}
+body .rainbow-text, body #wrapper .footer:hover, #wrapper body .footer:hover {
+  animation: rainbow-text 2.5s linear;
+  animation-iteration-count: infinite;
+}
+body .thumbnail, body #wrapper .app .left, #wrapper .app body .left {
+  background-image: url("https://i.imgur.com/i4KG5WL.jpg");
+  background-position: 37.5% 15%;
+  background-repeat: no-repeat;
+}
+@keyframes rainbow-text {
+  100%, 0% {
+    color: rgb(255, 0, 0);
+  }
+  8% {
+    color: rgb(255, 127, 0);
+  }
+  16% {
+    color: rgb(255, 255, 0);
+  }
+  25% {
+    color: rgb(127, 255, 0);
+  }
+  33% {
+    color: rgb(0, 255, 0);
+  }
+  41% {
+    color: rgb(0, 255, 127);
+  }
+  50% {
+    color: rgb(0, 255, 255);
+  }
+  58% {
+    color: rgb(0, 127, 255);
+  }
+  66% {
+    color: rgb(0, 0, 255);
+  }
+  75% {
+    color: rgb(127, 0, 255);
+  }
+  83% {
+    color: rgb(255, 0, 255);
+  }
+  91% {
+    color: rgb(255, 0, 127);
+  }
+}
+
+#wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: inherit;
+  width: 45vw;
+}
+@media (max-width: 1200px) {
+  #wrapper {
+    width: 75vw;
+  }
+}
+@media (max-width: 420px) {
+  #wrapper {
+    display: none;
+  }
+}
+#wrapper .app {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+@media (max-width: 1200px) {
+  #wrapper .app {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+#wrapper .app .left, #wrapper .app .right {
+  border: 1px solid black;
+  height: 50vh;
+  width: 50%;
+}
+@media (max-width: 1200px) {
+  #wrapper .app .left, #wrapper .app .right {
+    height: 300px;
+    width: 300px;
+  }
+}
+@media (max-width: 1200px) {
+  #wrapper .app .left {
+    margin-bottom: 10px;
+  }
+}
+#wrapper .app .right {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: white;
+  border-left: 0;
+  padding: 0 5px;
+}
+@media (max-width: 1200px) {
+  #wrapper .app .right {
+    border-left: 1px solid black;
+  }
+}
+#wrapper .app .right footer {
+  bottom: 5px;
+  color: #a4a4a4;
+  margin-top: 5px;
+  position: absolute;
+  right: 5px;
+}
+#wrapper .app .right footer a {
+  text-decoration: none;
+  color: inherit;
+}
+#wrapper .app .right footer a:hover {
+  color: dodgerblue;
+}
+#wrapper .app .right form {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+#wrapper .app .right form button {
+  align-self: flex-end;
+  background: dodgerblue;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  font-size: initial;
+  margin-top: 5px;
+  padding: 2px 10px;
+}
+#wrapper .app .right form input {
+  border: 1px solid black;
+  outline: 0;
+  padding: 2px;
+  width: 100%;
+}
+#wrapper .app .right svg {
+  margin: 10px auto;
+  align-self: center;
+  width: 200px;
+}
+#wrapper .footer {
+  color: #a4a4a4;
+  cursor: default;
+  bottom: 20px;
+  position: absolute;
+  right: 10px;
+}
+
+/*# sourceMappingURL=styles.css.map */
