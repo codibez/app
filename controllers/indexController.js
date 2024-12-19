@@ -1,17 +1,77 @@
+const client = require('discord.js');
 const mysql = require('mysql');
-
-// RENDER FEEDBACK TO VALIDATE/ PAGE 
-// response.render('index', { msg: msg })
 
 // @desc    show form
 // @route   GET validate/
-const validate = (request, response, next) => {
-    console.log(`request method: ${request.method}`);
+async function validate(request, response, next) {
+    // establish return msg
+    let feedback = '';
 
-    if (request.method == 'POST') {
+    if (request.method === 'POST') {
+        // stored code: 68dfcg1b
+
+        // get input 
         const code = request.body.code;
-        console.log(`user input: ${code}`);
 
+        // establish database connection
+        const con = fns.dbConnect();
+
+        // gather data where code matches 
+        const sql = `SELECT * FROM ${process.env.TABLE} WHERE code = '${code}'`;
+   
+        // create promise
+        const validation = new Promise(resolve => {
+            // query database
+            con.query(sql, (error, result, fields) => {
+                // throw any existing error:
+                if (error) throw error;
+
+                // log result:
+                console.log(result);
+
+                // if data exists,
+                if (result.length > 0) {
+                    // establish time object
+                    const time = {
+                        stored: result[0].generated,
+                        now: new Date(),
+                        difference: (new Date() - result[0].generated)
+                    };
+
+                    // if difference > 10 minutes
+                    if (time.difference > 600000) {
+                        feedback = 'code expired.';
+                    } else {
+                        feedback = 'validation success!';
+
+                        // const thanos = client.users.fetch('1176880851645104209');
+                    }
+                } else {
+                    feedback = 'invalid code.';
+                }
+
+                resolve(feedback);
+            });
+        });
+
+        // render feedback to validation page:
+        response.render('index', {feedback: await validation});
+    }
+
+    // render validation page:
+    if (request.method === 'GET') {
+        response.render('index', {feedback: feedback});
+        
+        /*
+        let res = client.GuildMemberManager.guild;
+        console.log(res);
+        */
+    };
+};
+
+// functions
+const fns = {
+    dbConnect: function(){
         const con = mysql.createConnection({
             host: process.env.HOST,
             user: process.env.USER,
@@ -19,30 +79,13 @@ const validate = (request, response, next) => {
             database: process.env.DATABASE
         });
 
-        con.connect((error) => {
+        con.connect(error => {
             if (error) throw error;
-            console.log('Connected');
+            console.log('Connected!');
         });
 
-        // stored code: 95ff3djb
-
-        const sql = `SELECT * FROM members WHERE code = '${code}'`;
-        con.query(sql, (error, result, fields) => {
-            if (error) throw error;
-            if (result.length > 0) {
-                // ensure datetime does not exceed 15minutes
-                // send success message, update discord role(s)
-                console.log(`user ${result[0].name}[${result[0].clientId}] found, update roles...`);
-            } else {
-                // no result, send error message
-                console.log(`that code does not exist, please try again...`);
-            }
-        });
-
-        return;
-    }
-
-    response.render('index');
-}
+        return con;
+    },
+};
 
 module.exports = validate;

@@ -116,7 +116,7 @@ body{
 			background:white;
 			border-left:0;
 			padding: 0 5px;
-			footer{
+			> footer{
 				bottom:5px;
 				color:$color-offset;
 				margin-top:5px;
@@ -131,15 +131,26 @@ body{
 			form{
 				@include flex(column,flex-start,center);
 				width:100%;
-				button{
-					align-self:flex-end;
-					background:$color-active;
-					border:0;
-					color:white;
-					cursor:pointer;
-					font-size: initial;
-					margin-top:5px;
-					padding:2px 10px;
+				footer {
+					@include flex(row,center,space-between);
+					margin-top: 5px;
+					width: 100%;
+
+					.feedback {
+						background: transparent;
+						flex: 1;
+						margin-right: 5px;
+						padding: 2px;
+					}
+
+					button {
+						background: $color-active;
+						border: 0;
+						color: white;
+						cursor: pointer;
+						font-size: initial;
+						padding: 2px 10px;
+					}
 				}
 				input{
 					border:1px solid black;
