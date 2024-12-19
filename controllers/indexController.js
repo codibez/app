@@ -1,4 +1,4 @@
-const client = require('discord.js');
+const { Client } = require('discord.js');
 const mysql = require('mysql');
 
 // @desc    show form
@@ -43,8 +43,8 @@ async function validate(request, response, next) {
                         feedback = 'code expired.';
                     } else {
                         feedback = 'validation success!';
-
-                        // const thanos = client.users.fetch('1176880851645104209');
+                        
+                        // update role
                     }
                 } else {
                     feedback = 'invalid code.';
@@ -61,11 +61,6 @@ async function validate(request, response, next) {
     // render validation page:
     if (request.method === 'GET') {
         response.render('index', {feedback: feedback});
-        
-        /*
-        let res = client.GuildMemberManager.guild;
-        console.log(res);
-        */
     };
 };
 
